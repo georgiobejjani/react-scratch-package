@@ -2,30 +2,30 @@ body {
     overflow: hidden;
     font-family: 'Inter', sans-serif;
     margin: 0;
-}
-
-.howToWin-conditions {
+  }
+  
+  .howToWin-conditions {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
     text-align: center;
-}
-
-.winning-img {
+  }
+  
+  .winning-img {
     display: block;
     height: 100px;
     margin: 0 auto 20px;
-}
-
-.winning-value {
+  }
+  
+  .winning-value {
     color: white;
     text-align: center;
     font-weight: 500;
-}
-
-.bottomContainer {
+  }
+  
+  .bottomContainer {
     width: 100%;
     position: absolute;
     left: 0;
@@ -34,18 +34,18 @@ body {
     background-color: #EF7D00;
     height: 60px;
     z-index: 10000;
-}
-
-.inside-content {
+  }
+  
+  .inside-content {
     width: 95%;
     height: 100%;
     margin: auto;
     display: flex;
     justify-content: center;
     position: relative;
-}
-
-.burger-menu {
+  }
+  
+  .burger-menu {
     position: absolute;
     width: 23px;
     height: 20px;
@@ -53,55 +53,55 @@ body {
     left: 25px;
     top: 50%;
     transform: translateY(-50%);
-}
-
-.item {
+  }
+  
+  .item {
     position: absolute;
     width: 26px;
     height: 5px;
     border-radius: 5px;
     background-color: white;
     transition: top 0.1s ease-in-out 0.2s, transform 0.2s ease-in-out, opacity 0.2s ease-in-out 0.2s, left 0.1s ease-in-out, background-color 0.1s;
-}
-
-.item:nth-child(1) {
+  }
+  
+  .item:nth-child(1) {
     top: 0;
-}
-
-.item:nth-child(2) {
+  }
+  
+  .item:nth-child(2) {
     top: 9px;
-}
-
-.item:nth-child(3) {
+  }
+  
+  .item:nth-child(3) {
     top: 18px;
-}
-
-
-.burger-active .item {
+  }
+  
+  
+  .burger-active .item {
     transition: top 0.1s ease-in-out, transform 0.2s ease-in-out 0.2s, opacity 0.1s ease-in-out 0.2s;
-}
-
-.burger-active .item:nth-child(1) {
+  }
+  
+  .burger-active .item:nth-child(1) {
     transform: rotate(45deg);
     top: 10px;
-}
-
-.burger-active .item:nth-child(2) {
+  }
+  
+  .burger-active .item:nth-child(2) {
     opacity: 0;
-}
-
-.burger-active .item:nth-child(3) {
+  }
+  
+  .burger-active .item:nth-child(3) {
     transform: rotate(-45deg);
     top: 10px;
-}
-
-.burger-active.menu-content {
+  }
+  
+  .burger-active.menu-content {
     transform: translateY(-65px);
     padding: 25px 0;
     max-height: 1000px;
-}
-
-.menu-content {
+  }
+  
+  .menu-content {
     position: absolute;
     bottom: 0;
     max-height: 0;
@@ -115,35 +115,35 @@ body {
     background-color: #006635;
     border-radius: 25px;
     width: 50px;
-}
-
-.menu-item {
+  }
+  
+  .menu-item {
     margin-top: 40px;
     cursor: pointer;
     position: relative;
-}
-
-.menu-item:nth-child(1) {
+  }
+  
+  .menu-item:nth-child(1) {
     margin-top: 0;
-}
-
-.menu-item:hover .hover-container {
+  }
+  
+  .menu-item:hover .hover-container {
     max-width: 200px;
     opacity: 1;
     visibility: visible;
     transition: max-width 0.7s ease;
-}
-
-
-.button-image {
+  }
+  
+  
+  .button-image {
     height: 22px;
     display: block;
     margin: auto;
-}
-
-/*  */
-
-.action-btns {
+  }
+  
+  /*  */
+  
+  .action-btns {
     display: flex;
     width: fit-content;
     position: absolute;
@@ -153,9 +153,9 @@ body {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-}
-
-.actionbtn {
+  }
+  
+  .actionbtn {
     border-radius: 40px;
     border: none;
     background-color: #006635;
@@ -167,113 +167,140 @@ body {
     letter-spacing: 3px;
     padding: 10px 20px;
     border: none;
-}
-
-.actionbtn1:hover {
+  }
+  
+  .actionbtn1:hover {
     cursor: pointer;
     background-color: #006635;
     color: white;
-}
-
-.actionbtn2:hover {
+  }
+  
+  .actionbtn2:hover {
     cursor: pointer;
     color: #006635;
-}
-
-/*  */
-
-
-/*  */
-.scratch-card {
+  }
+  
+  /*  */
+  
+  
+  /*  */
+  .scratch-card {
     width: 400px;
     height: 400px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    position: relative;
+    position: absolute;
     z-index: 1;
-}
-
-.scratch-area {
+    /* top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+  }
+  
+  .scratch-area {
     z-index: 1000;
     width: 400px;
     height: 400px;
-}
-
-/*  */
-
-
-.sucessIcon {
+  }
+  
+  /*  */
+  
+  
+  .sucessIcon {
     position: absolute;
     top: 50%;
     right: -20px;
     transform: translateY(-50%);
     height: 20px;
     margin-left: 5px;
-}
-
-.hidden {
+  }
+  
+  .hidden {
     display: none;
-}
-
-.cardContainer {
+  }
+  
+  .cardContainer {
     width: 650px;
-    height: calc(100svh - 90px);
-    bottom: 60px;
+    height: calc(100svh - 100px);
+    bottom: 80px;
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
     background-position: center;
     background-size: cover;
     border-radius: 30px;
-}
-
-.cardContainer-content {
+  }
+  
+  .cardContainer-content {
     position: relative;
     overflow: hidden;
-    height: fit-content;
-    margin: 20px;
-}
-
-.cardContainer-header {
+    height: calc(100svh - 100px);
+  }
+  
+  .cardContainer-header {
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
     flex-direction: row;
-}
-
-.cardContainer__flares {
+  }
+  
+  .cardContainer__flares {
     top: 0;
     left: 0;
     position: absolute;
     border-top-left-radius: 30px;
-}
-
-.scratch-logo, .price-icon {
+  }
+  
+  .scratch-logo, .price-icon {
     height: 80px;
-}
-
-.game-logo {
+    position: absolute;
+  }
+  
+  .cardContainer-internalContent {
+    position: relative;
+    height: 200px;
+    top: 12%;
+  }
+  
+  .game-logo {
     height: 90px;
-    display: block;
-    margin: 15px auto 0;
-}
-
-.cardContainer__rules {
-    font-size: 60px;
+    position: absolute;
+    top: 20px;
+  }
+  
+  .game-logo.center {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .game-logo.left {
+    left: 0;
+  }
+  
+  .game-logo.right {
+    right: 0;
+  }
+  
+  .cardContainer__rules {
+    font-size: 50px;
     font-weight: 600;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
-    margin: 10px 0;
-}
-
-.cardContainer_bottomImg {
+    position: absolute;
+    bottom: 20px;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .cardContainer_bottomImg {
     position: absolute;
     right: 0;
     bottom: 0;
     z-index: -1;
-}
-
-.counter-tickets {
+  }
+  
+  .counter-tickets {
     display: flex;
     width: fit-content;
     align-items: center;
@@ -281,9 +308,9 @@ body {
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
-}
-
-.ticketBtn {
+  }
+  
+  .ticketBtn {
     background-color: transparent;
     text-align: center;
     border-radius: 50%;
@@ -296,13 +323,13 @@ body {
     font-weight: bold;
     padding: 0;
     cursor: pointer;
-}
-
-.minusbtn {
+  }
+  
+  .minusbtn {
     line-height: 27px;
-}
-
-.ticket-container {
+  }
+  
+  .ticket-container {
     min-width: 40px;
     height: 40px;
     border-radius: 5px;
@@ -312,9 +339,9 @@ body {
     margin: 0 10px;
     text-align: center;
     line-height: 40px;
-}
-
-.purchaseBtn {
+  }
+  
+  .purchaseBtn {
     width: 120px;
     height: 40px;
     background-color: #006635;
@@ -330,66 +357,65 @@ body {
     cursor: pointer;
     border: 1px solid #006635;
     box-shadow: 0px 0px 4px 1px #00000040;
-}
-
-
-.close-btn {
+  }
+  
+  
+  .close-btn {
     margin-left: calc(100% - 30px);
     font-size: 30px;
     display: block;
-    background-color: white;
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    color: #bc7036;
+    color: white;
     text-align: center;
     cursor: pointer;
     border: none;
     outline: none;
     font-size: 21px;
-}
-
-dialog:-internal-dialog-in-top-layer::backdrop {
+  }
+  
+  dialog:-internal-dialog-in-top-layer::backdrop {
     position: fixed;
     inset: 1px;
     background: rgba(0, 0, 0, 0.5);
-}
-
-.dialogWrapper {
+  }
+  
+  .dialogWrapper {
     background-color: #006635;
     font-size: 16px;
     border-radius: 30px;
-    width: 80%;
+    min-width: 500px;
     max-height: 400px;
     padding: 20px;
     border: none;
     outline: none;
-    overflow: scroll;
-}
-
-
-.insideDialog {
+    overflow: auto;
+  }
+  
+  
+  .insideDialog {
     height: 100%;
     overflow-y: scroll;
     scrollbar-width: auto;
     scrollbar-color: #cf1351 #ffffff;
     margin-top: 20px;
-}
-
-.insideDialog::-webkit-scrollbar {
+  }
+  
+  .insideDialog::-webkit-scrollbar {
     width: 10px;
-}
-
-.insideDialog::-webkit-scrollbar-track {
+  }
+  
+  .insideDialog::-webkit-scrollbar-track {
     background: #ffffff36;
-}
-
-.insideDialog::-webkit-scrollbar-thumb {
+  }
+  
+  .insideDialog::-webkit-scrollbar-thumb {
     background-color: #383737;
     border-radius: 10px;
-}
-
-.arrayContainer {
+  }
+  
+  .arrayContainer {
     position: absolute;
     bottom: 50%;
     right: 50%;
@@ -400,16 +426,16 @@ dialog:-internal-dialog-in-top-layer::backdrop {
     gap: 20px;
     justify-content: space-around;
     z-index: -1;
-}
-
-.value-item {
+  }
+  
+  .value-item {
     min-width: 100px;
     text-align: center;
     font-size: 20px;
     font-weight: 600;
-}
-
-.custom-loader {
+  }
+  
+  .custom-loader {
     margin: auto;
     width: 20px;
     height: 20px;
@@ -417,9 +443,9 @@ dialog:-internal-dialog-in-top-layer::backdrop {
     border-radius: 50%;
     border-top: 2px solid transparent;
     animation: spin 1s linear infinite;
-}
-
-.ticket-loader {
+  }
+  
+  .ticket-loader {
     margin: auto;
     width: 20px;
     height: 20px;
@@ -427,55 +453,55 @@ dialog:-internal-dialog-in-top-layer::backdrop {
     border-radius: 50%;
     border-top: 2px solid transparent;
     animation: spin 1s linear infinite;
-}
-
-
-@keyframes spin {
+  }
+  
+  
+  @keyframes spin {
     100% {
-        transform: rotate(360deg);
+      transform: rotate(360deg);
     }
-}
-
-
-.scoringContainer {
+  }
+  
+  
+  .scoringContainer {
     position: absolute;
     top: 38%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 100;
     width: 100%;
-}
-
-.scoreAnimation {
+  }
+  
+  .scoreAnimation {
     text-align: center;
     font-size: 60px;
     color: #ffffff;
     font-family: "Arial Black", Gadget, sans-serif;
     text-shadow: 0px 0px 0 rgb(249, 249, 249), -1px 0px 0 rgb(243, 243, 243), -2px 0px 0 rgb(236, 236, 236), -3px 0px 0 rgb(230, 230, 230), -4px 0px 0 rgb(224, 224, 224), -5px 0px 0 rgb(218, 218, 218), -6px 0px 0 rgb(211, 211, 211), -7px 0px 0 rgb(205, 205, 205), -8px 0px 0 rgb(199, 199, 199), -9px 0px 8px rgba(0, 0, 0, 0.24), -9px 0px 1px rgba(0, 0, 0, 0.5), 0px 0px 8px rgba(0, 0, 0, .2);
     animation: scaleUp 1s ease-in-out forwards, fadeIn 1s ease-in-out forwards;
-}
-
-@keyframes scaleUp {
+  }
+  
+  @keyframes scaleUp {
     0% {
-        transform: scale(0);
+      transform: scale(0);
     }
-
+  
     100% {
-        transform: scale(1);
+      transform: scale(1);
     }
-}
-
-@keyframes fadeIn {
+  }
+  
+  @keyframes fadeIn {
     0% {
-        opacity: 0;
+      opacity: 0;
     }
-
+  
     100% {
-        opacity: 1;
+      opacity: 1;
     }
-}
-
-.confetti {
+  }
+  
+  .confetti {
     position: absolute;
     width: 5px;
     height: 10px;
@@ -483,88 +509,89 @@ dialog:-internal-dialog-in-top-layer::backdrop {
     transform-origin: top left;
     animation: confettiFall 5s linear infinite;
     z-index: 1000;
-}
-
-@keyframes confettiFall {
+  }
+  
+  @keyframes confettiFall {
     0% {
-        transform: translateY(-100vh) rotate(0deg);
+      transform: translateY(-100vh) rotate(0deg);
     }
-
+  
     50% {
-        transform: rotate(-180deg);
+      transform: rotate(-180deg);
     }
-
+  
     100% {
-        transform: translateY(100vh) rotate(180deg);
+      transform: translateY(100vh) rotate(180deg);
     }
-}
-
-
-table {
+  }
+  
+  
+  table {
     border-collapse: collapse;
     width: 100%;
-}
-
-th, td {
+  }
+  
+  th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
     color: white;
-}
-
-th {
+  }
+  
+  th {
     background-color: #f2f2f2;
     color: black;
-}
-
-.ticket-loader, .playAgain-loader {
+  }
+  
+  .ticket-loader, .playAgain-loader {
     display: none;
-}
-
-.playAgain-loader {
+  }
+  
+  .playAgain-loader {
     margin: 5px auto 0;
-}
-
-.blinking-button {
+  }
+  
+  .blinking-button {
     animation: blinkAnimation 2s ease infinite;
-}
-
-@keyframes blinkAnimation {
+  }
+  
+  @keyframes blinkAnimation {
     0%, 50%, 100% {
-        opacity: 1;
+      opacity: 1;
     }
-
+  
     25%, 75% {
-        opacity: 0.7;
+      opacity: 0.7;
     }
-}
-
-
-.howToPlay-conditions {
+  }
+  
+  
+  .howToPlay-conditions {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
-}
-
-.tag-container {
+  }
+  
+  .tag-container {
     border: 2px solid white;
     width: fit-content;
     padding: 5px 10px;
     border-radius: 50%;
     margin-right: 10px;
-}
-
-.tag-number {
+    background-color: transparent;
+  }
+  
+  .tag-number {
     color: white;
     font-weight: 600;
-}
-
-.howToPlay-content {
+  }
+  
+  .howToPlay-content {
     text-transform: capitalize;
     color: white;
-}
-
-.small-areaContainer {
+  }
+  
+  .small-areaContainer {
     position: absolute;
     overflow: hidden;
     bottom: 65px;
@@ -577,23 +604,23 @@ th {
     z-index: 1000;
     background-color: #006635;
     text-align: center;
-}
-
-
-.tickets-text-mobile {
+  }
+  
+  
+  .tickets-text-mobile {
     color: white;
     font-size: 12px;
     font-weight: 500;
     display: block;
     width: 100%;
-}
-
-#availableTickets {
+  }
+  
+  #availableTickets {
     color: white;
     font-size: 20px;
-}
-
-.loader {
+  }
+  
+  .loader {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -601,9 +628,9 @@ th {
     right: 0;
     background: rgba(0, 0, 0, 0.56);
     z-index: 10000;
-}
-
-.loader-container {
+  }
+  
+  .loader-container {
     margin: 10px auto 0 auto;
     border: 5px solid #f3f3f3;
     border-top: 5px solid rgb(141, 141, 141);
@@ -615,211 +642,227 @@ th {
     top: 50%;
     left: 50%;
     transform: translate(-50%);
-}
-
-@keyframes spin {
+  }
+  
+  @keyframes spin {
     0% {
-        transform: translate(-50%) rotate(0deg);
+      transform: translate(-50%) rotate(0deg);
     }
-
+  
     100% {
-        transform: translate(-50%) rotate(360deg);
+      transform: translate(-50%) rotate(360deg);
     }
-}
-
-
-@media only screen and (max-width: 767px) {
+  }
+  
+  
+  @media only screen and (max-width: 767px) {
+    .cardContainer-content {
+      height: calc(100svh - 60px);
+    }
+  
+    .cardContainer-internalContent {
+      height: 150px;
+    }
+  
     .actionbtn {
-        padding: 10px;
-        letter-spacing: 0;
+      padding: 10px;
+      letter-spacing: 0;
     }
-
+  
     .action-btns {
-        bottom: 65px;
+      bottom: 65px;
     }
-
+  
     .cardContainer {
-        width: 100%;
-        height: 100%;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        transform: initial;
-
+      width: 100%;
+      height: 100%;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      transform: initial;
+      border-radius: 0;
+  
     }
-
+  
     .emptybg {
-        height: 100vh;
-        border-radius: 0;
+      height: 100vh;
+      border-radius: 0;
     }
-
+  
     .counter-tickets {
-        bottom: 45px;
+      bottom: 45px;
     }
-
+  
     .ticketBtn {
-        height: 25px;
-        width: 25px;
-        line-height: 25px;
-        font-size: 14px;
+      height: 25px;
+      width: 25px;
+      line-height: 25px;
+      font-size: 14px;
     }
-
+  
     .minusbtn {
-        line-height: 21px;
+      line-height: 21px;
     }
-
+  
     .ticket-container {
-        min-width: 40px;
-        font-size: 12px;
-        height: 40px;
-        line-height: 40px;
-        border-radius: 5px;
+      min-width: 40px;
+      font-size: 12px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 5px;
     }
-
+  
     .purchaseBtn {
-        width: 90px;
-        font-size: 12px;
-        letter-spacing: 0;
+      width: 90px;
+      font-size: 12px;
+      letter-spacing: 0;
     }
-
+  
     .scoreAnimation {
-        font-size: 45px;
+      font-size: 45px;
     }
-
+  
     table {
-        font-size: 12px;
-
-        td, th {
-            padding: 4px;
-        }
+      font-size: 12px;
+  
+      td, th {
+        padding: 4px;
+      }
     }
-
+  
     .burger-active .menu-content {
-        transform: translateY(-65px);
+      transform: translateY(-65px);
     }
-
+  
     .menu-item {
-        margin-top: 20px;
+      margin-top: 20px;
     }
-
+  
     .scratch-logo, .price-icon {
-        height: 50px;
+      height: 50px;
     }
-
+  
     .game-logo {
-        height: 60px;
+      height: 60px;
     }
-
+  
     .cardContainer__rules {
-        font-size: 25px;
+      font-size: 25px;
     }
-
+  
     .scratch-card {
-        width: 280px;
-        height: 280px;
-        left: 50%;
-        top: 50px;
-        transform: translateX(-50%);
+      width: 360px;
+      height: 360px;
     }
-
+  
     .scratch-area {
-        width: 280px;
-        height: 280px;
+      width: 360px;
+      height: 360px;
     }
-
+  
+    .mobilecentered {
+      left: 50% !important;
+      transform: translateX(-50%);
+    }
+  
     .cardContainer__flares {
-        height: 150px;
+      height: 150px;
+      border-radius: 0;
     }
-
+  
     .arrayContainer {
-        width: 215px;
-        gap: 10px;
+      width: 215px;
+      gap: 10px;
     }
-}
-
-@media only screen and (max-width: 345px) {
+  
+    .dialogWrapper {
+      min-width: 200px;
+      max-width: 300px;
+    }
+  }
+  
+  /* @media only screen and (max-width: 345px) {
     .actionbtn {
-        padding: 10px;
-        letter-spacing: 0;
+      padding: 10px;
+      letter-spacing: 0;
     }
-
+  
     .price-icon {
-        position: absolute;
-        right: 0;
-        height: 40px;
+      position: absolute;
+      right: 0;
+      height: 40px;
     }
-
+  
     .z-logo {
-        top: 80px;
-        height: 40px;
+      top: 80px;
+      height: 40px;
     }
-
+  
     .game-logo {
-        position: absolute;
-        height: 60px;
+      position: absolute;
+      height: 60px;
     }
-
+  
     .cardContainer {
-        width: 100%;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        transform: initial;
+      width: 100%;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      transform: initial;
     }
-
+  
     .emptybg {
-        height: calc(100vh - 55px);
-        border-radius: 0;
+      height: calc(100vh - 55px);
+      border-radius: 0;
     }
-
+  
     .scratch-card {
-        left: 50%;
-        top: 55%;
-        transform: translate(-50%, -50%);
+      left: 50%;
+      top: 55%;
     }
-
+  
     .main-flower {
-        width: 240px;
-        height: 170px;
+      width: 240px;
+      height: 170px;
     }
-
+  
     .scratch-area {
-        width: 240px;
-        height: 170px;
+      width: 240px;
+      height: 170px;
     }
-
+  
     .counter-tickets {
-        bottom: 45px;
+      bottom: 45px;
     }
-
+  
     .ticketBtn {
-        height: 25px;
-        width: 25px;
-        line-height: 25px;
-        font-size: 14px;
+      height: 25px;
+      width: 25px;
+      line-height: 25px;
+      font-size: 14px;
     }
-
+  
     .minusbtn {
-        line-height: 21px;
+      line-height: 21px;
     }
-
+  
     .purchaseBtn {
-        width: 90px;
-        font-size: 12px;
-        letter-spacing: 0;
+      width: 90px;
+      font-size: 12px;
+      letter-spacing: 0;
     }
-
+  
     .scoreAnimation {
-        font-size: 50px;
+      font-size: 50px;
     }
-
+  
     table {
-        font-size: 12px;
+      font-size: 12px;
     }
-
+  
     table td,
     table th {
-        padding: 4px;
+      padding: 4px;
     }
-
-}
+  
+  } */
