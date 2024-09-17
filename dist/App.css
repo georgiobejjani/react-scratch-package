@@ -443,25 +443,16 @@ dialog:-internal-dialog-in-top-layer::backdrop {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 100;
+    width: 100%;
 }
 
 .scoreAnimation {
     text-align: center;
-    font-size: 100px;
+    font-size: 60px;
     color: #ffffff;
     font-family: "Arial Black", Gadget, sans-serif;
     text-shadow: 0px 0px 0 rgb(249, 249, 249), -1px 0px 0 rgb(243, 243, 243), -2px 0px 0 rgb(236, 236, 236), -3px 0px 0 rgb(230, 230, 230), -4px 0px 0 rgb(224, 224, 224), -5px 0px 0 rgb(218, 218, 218), -6px 0px 0 rgb(211, 211, 211), -7px 0px 0 rgb(205, 205, 205), -8px 0px 0 rgb(199, 199, 199), -9px 0px 8px rgba(0, 0, 0, 0.24), -9px 0px 1px rgba(0, 0, 0, 0.5), 0px 0px 8px rgba(0, 0, 0, .2);
     animation: scaleUp 1s ease-in-out forwards, fadeIn 1s ease-in-out forwards;
-}
-
-.scoringContainer.smaller {
-    top: 45%;
-    left: 42%;
-
-    .scoreAnimation {
-        font-size: 30px;
-        text-transform: uppercase;
-    }
 }
 
 @keyframes scaleUp {
@@ -628,11 +619,11 @@ th {
 
 @keyframes spin {
     0% {
-        transform: rotate(0deg);
+        transform: translate(-50%) rotate(0deg);
     }
 
     100% {
-        transform: rotate(360deg);
+        transform: translate(-50%) rotate(360deg);
     }
 }
 
@@ -641,6 +632,10 @@ th {
     .actionbtn {
         padding: 10px;
         letter-spacing: 0;
+    }
+
+    .action-btns {
+        bottom: 65px;
     }
 
     .cardContainer {
@@ -688,7 +683,7 @@ th {
     }
 
     .scoreAnimation {
-        font-size: 50px;
+        font-size: 45px;
     }
 
     table {
@@ -707,6 +702,39 @@ th {
         margin-top: 20px;
     }
 
+    .scratch-logo, .price-icon {
+        height: 50px;
+    }
+
+    .game-logo {
+        height: 60px;
+    }
+
+    .cardContainer__rules {
+        font-size: 25px;
+    }
+
+    .scratch-card {
+        width: 280px;
+        height: 280px;
+        left: 50%;
+        top: 50px;
+        transform: translateX(-50%);
+    }
+
+    .scratch-area {
+        width: 280px;
+        height: 280px;
+    }
+
+    .cardContainer__flares {
+        height: 150px;
+    }
+
+    .arrayContainer {
+        width: 215px;
+        gap: 10px;
+    }
 }
 
 @media only screen and (max-width: 345px) {

@@ -17,7 +17,6 @@ var _priceIcon = _interopRequireDefault(require("../assets/icons/priceIcon.png")
 var _flares = _interopRequireDefault(require("../assets/icons/flares.png"));
 var _Loader = _interopRequireDefault(require("./Loader"));
 require("../App.css");
-var _axios = _interopRequireDefault(require("axios"));
 var _reactConfetti = _interopRequireDefault(require("react-confetti"));
 var _winningSound = _interopRequireDefault(require("../assets/sounds/winning-sound.mp3"));
 var _loosingSound = _interopRequireDefault(require("../assets/sounds/loosing-sound.mp3"));
@@ -53,7 +52,9 @@ function ScratchCard(_ref) {
     tropheeObject = _ref.tropheeObject,
     tropheeImage = _ref.tropheeImage,
     token = _ref.token,
-    scratchType = _ref.scratchType;
+    scratchType = _ref.scratchType,
+    scratchAllButton = _ref.scratchAllButton,
+    replayButton = _ref.replayButton;
   var _useState = (0, _react.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     activeMenu = _useState2[0],
@@ -110,8 +111,19 @@ function ScratchCard(_ref) {
     _useState28 = _slicedToArray(_useState27, 2),
     isWinning = _useState28[0],
     setIsWinning = _useState28[1];
+  var _useState29 = (0, _react.useState)(false),
+    _useState30 = _slicedToArray(_useState29, 2),
+    loadReplay = _useState30[0],
+    setLoadReplay = _useState30[1];
+  var _useState31 = (0, _react.useState)(''),
+    _useState32 = _slicedToArray(_useState31, 2),
+    score = _useState32[0],
+    setScore = _useState32[1];
+  var _useState33 = (0, _react.useState)('hidden'),
+    _useState34 = _slicedToArray(_useState33, 2),
+    scoreState = _useState34[0],
+    setScoreState = _useState34[1];
   var canvasRef = (0, _react.useRef)(null);
-  var scratchCardRef = (0, _react.useRef)(null);
   var ctxRef = (0, _react.useRef)(null);
   var overlayClearedRef = (0, _react.useRef)(false);
   var isDrawingRef = (0, _react.useRef)(false);
@@ -191,6 +203,33 @@ function ScratchCard(_ref) {
       checkIfRevealed();
     }
   };
+  var handleTouchStart = function handleTouchStart(e) {
+    e.preventDefault();
+    if (availableTickets > 0 && !overlayClearedRef.current) {
+      isDrawingRef.current = true;
+    }
+  };
+  var handleTouchEnd = function handleTouchEnd(e) {
+    e.preventDefault();
+    if (availableTickets > 0 && !overlayClearedRef.current) {
+      isDrawingRef.current = false;
+      checkIfRevealed();
+    }
+  };
+  var handleTouchMove = function handleTouchMove(e) {
+    e.preventDefault();
+    var canvas = canvasRef.current;
+    var bounds = canvas.getBoundingClientRect();
+    var scaleX = canvas.width / bounds.width;
+    var scaleY = canvas.height / bounds.height;
+    if (availableTickets > 0 && !overlayClearedRef.current && isDrawingRef.current) {
+      var touch = e.touches[0];
+      var x = (touch.clientX - bounds.left) * scaleX;
+      var y = (touch.clientY - bounds.top) * scaleY;
+      clearOverlay(x, y);
+      checkIfRevealed();
+    }
+  };
   var clearOverlay = function clearOverlay(x, y) {
     var ctx = ctxRef.current;
     ctx.globalCompositeOperation = "destination-out";
@@ -242,12 +281,23 @@ function ScratchCard(_ref) {
       numberOfTickets: count,
       gameType: scratchType
     };
-    _axios["default"].post(url, body).then(function (response) {
-      window.top.postMessage("called", "*");
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }).then(function (response) {
+      if (!response.ok) {
+        throw new Error("HTTP error! status: ".concat(response.status));
+      }
+      return response.json();
+    }).then(function (data) {
       setLoader(false);
+      window.top.postMessage("called", "*");
       setCount(0);
-      if (response.data.status === 0) {
-        setReturnMessage(response.data.message);
+      if (data.status === 0) {
+        setReturnMessage(data.message);
         openDialog('returnDialog');
       } else {
         getUnplayed();
@@ -257,7 +307,8 @@ function ScratchCard(_ref) {
         fetchDataFromAPI();
       }
     })["catch"](function (error) {
-      console.error("Fetch error: " + error.message);
+      setLoader(false);
+      console.error("Fetch error:", error.message);
     });
   }
   function getUnplayed() {
@@ -265,18 +316,25 @@ function ScratchCard(_ref) {
     var pagesize = 1000;
     var pagenb = "0&isFinished=0";
     var url = "".concat(apiEndpoint, "scratch-api/tokens/").concat(token, "/tickets?Type=").concat(scratchType, "&PageNumber=").concat(pagenb, "&PageSize=").concat(pagesize);
-    _axios["default"].get(url).then(function (response) {
+    fetch(url).then(function (response) {
+      if (!response.ok) {
+        throw new Error("HTTP error! status: ".concat(response.status));
+      }
+      return response.json();
+    }).then(function (data) {
       setLoader(false);
-      if (response.status === 200 && response.data.status === 1 && response.data.tickets !== null) {
-        setAvailableTickets(response.data.numberOfTickets);
-        if (response.data.numberOfTickets > 0 && overlayClearedRef.current) {
+      if (data.status === 1 && data.tickets !== null) {
+        console.log(data.numberOfTickets);
+        setAvailableTickets(data.numberOfTickets);
+        if (data.numberOfTickets > 0 && overlayClearedRef.current) {
           toggleButtonVisibility(replayButtonRef, true);
         }
       } else {
-        console.error(response.data);
+        console.error(data);
       }
     })["catch"](function (error) {
-      console.error("Error:", error);
+      setLoader(false);
+      console.error("Error:", error.message);
     });
   }
   function fetchDataFromAPI() {
@@ -285,29 +343,33 @@ function ScratchCard(_ref) {
       var pagesize = 1000;
       var pagenb = "0&isFinished=0";
       var url = "".concat(apiEndpoint, "scratch-api/tokens/").concat(token, "/tickets?Type=").concat(scratchType, "&PageNumber=").concat(pagenb, "&PageSize=").concat(pagesize);
-      _axios["default"].get(url).then(function (response) {
+      fetch(url).then(function (response) {
+        if (!response.ok) {
+          throw new Error("HTTP error! status: ".concat(response.status));
+        }
+        return response.json();
+      }).then(function (data) {
         setLoader(false);
-        if (response.status === 200) {
-          var data = response.data;
-          if (data.status === 1 && data.tickets.length > 0) {
-            if (data.numberOfTickets > 0 && !overlayClearedRef.current) {
-              toggleButtonVisibility(playButtonRef, true);
-            }
-            setTargetScore(data.tickets[0].prize);
-            setTicketId(data.tickets[0].id);
-            setMyArray(data.tickets[0].ticketValues);
-            setWinningValue(data.tickets[0].winningValue);
-            setAvailableTickets(data.numberOfTickets);
-            createValuesArray(data.tickets[0].ticketValues);
-          } else {
-            console.error(data);
+        if (data.status === 1 && data.tickets.length > 0) {
+          if (data.numberOfTickets > 0 && !overlayClearedRef.current) {
+            toggleButtonVisibility(playButtonRef, true);
           }
+          setTargetScore(data.tickets[0].prize);
+          setTicketId(data.tickets[0].id);
+          setMyArray(data.tickets[0].ticketValues);
+          setWinningValue(data.tickets[0].winningValue);
+          setAvailableTickets(data.numberOfTickets);
+          createValuesArray(data.tickets[0].ticketValues);
         } else {
-          console.error("Unexpected response status:", response.status);
+          console.error(data);
         }
       })["catch"](function (error) {
+        setLoader(false);
         console.error("Error:", error.message);
       });
+    } else {
+      setLoader(false);
+      console.error("Token is not provided");
     }
   }
   function getInfos() {
@@ -315,9 +377,13 @@ function ScratchCard(_ref) {
     var pagesize = 1000;
     var pagenb = 0;
     var url = "".concat(apiEndpoint, "scratch-api/tokens/").concat(token, "/tickets?Type=").concat(scratchType, "&PageNumber=").concat(pagenb, "&PageSize=").concat(pagesize);
-    _axios["default"].get(url).then(function (response) {
+    fetch(url).then(function (response) {
+      if (!response.ok) {
+        throw new Error("HTTP error! status: ".concat(response.status));
+      }
+      return response.json();
+    }).then(function (data) {
       setLoader(false);
-      var data = response.data;
       if (data.tickets) {
         var filteredTickets = data.tickets.filter(function (item) {
           return item.ticketState !== "PENDING";
@@ -325,7 +391,7 @@ function ScratchCard(_ref) {
         setTickets(filteredTickets);
         openDialog('ticketsDialog');
       } else {
-        setReturnMessage(response.data.message);
+        setReturnMessage(data.message);
         openDialog('returnDialog');
       }
     })["catch"](function (error) {
@@ -338,9 +404,13 @@ function ScratchCard(_ref) {
     var pagesize = 1000;
     var pagenb = 0;
     var url = "".concat(apiEndpoint, "scratch-api/tokens/").concat(token, "/tickets?Type=").concat(scratchType, "&isFinished=1&isWinning=true&PageNumber=").concat(pagenb, "&PageSize=").concat(pagesize);
-    _axios["default"].get(url).then(function (response) {
+    fetch(url).then(function (response) {
+      if (!response.ok) {
+        throw new Error("HTTP error! status: ".concat(response.status));
+      }
+      return response.json();
+    }).then(function (data) {
       setLoader(false);
-      var data = response.data;
       if (data.tickets) {
         var filteredTickets = data.tickets.filter(function (item) {
           return item.ticketState !== "PENDING";
@@ -348,7 +418,7 @@ function ScratchCard(_ref) {
         setWinningTickets(filteredTickets);
         openDialog('winningsDialog');
       } else {
-        setReturnMessage(response.data.message);
+        setReturnMessage(data.message);
         openDialog('returnDialog');
       }
     })["catch"](function (error) {
@@ -358,17 +428,29 @@ function ScratchCard(_ref) {
   }
   function playTicket(ticketId) {
     console.log("called");
-    setLoader(true);
+    setLoadReplay(true);
     var body = {
       token: token,
       gameType: scratchType,
       ticketId: ticketId
     };
-    _axios["default"].patch("".concat(apiEndpoint, "scratch-api/tickets?language=en"), body).then(function (response) {
-      setLoader(false);
+    fetch("".concat(apiEndpoint, "scratch-api/tickets?language=en"), {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }).then(function (response) {
+      if (!response.ok) {
+        throw new Error("HTTP error! status: ".concat(response.status));
+      }
+      return response.json();
+    }).then(function (data) {
+      setLoadReplay(false);
       window.top.postMessage("called", "*");
       getUnplayed(scratchType);
     })["catch"](function (error) {
+      setLoadReplay(false);
       console.error("Error:", error.message);
     });
   }
@@ -400,46 +482,32 @@ function ScratchCard(_ref) {
     overlayClearedRef.current = false;
     fetchDataFromAPI();
     toggleButtonVisibility(replayButtonRef, false);
-    // document
-    //   .getElementById("playAgainButton")
-    //   .classList.remove("blinking-button");
-    // if (this.winningValue !== "losing") {
-    //   stopWinningAnimation();
-    // } else {
-    //   stopLoosingAnimation();
-    // }
+    if (winningValue !== "losing") {
+      stopWinningAnimation();
+    } else {
+      stopLoosingAnimation();
+    }
   }
   function startScoreAnimation(score) {
-    // const scoreAnimation = document.getElementById("scoreAnimation");
-    // scoreAnimation.textContent = `${'Vous Gagnez' + "\n" + score}`;
-    // scoreAnimation.classList.remove("hidden");
+    setScore("".concat('Vous avez Gagnez' + "\n" + score, " ").concat(currency));
+    setScoreState('');
     winningAudioRef.current.play();
     setIsWinning(true);
   }
   function startLoosingAnimation() {
     loosingAudioRef.current.play();
   }
-
-  //   function stopLoosingAnimation() {
-  //     if (losingSound) {
-  //       losingSound.pause();
-  //       losingSound.currentTime = 0;
-  //     }
-  //   }
-
-  //   function stopWinningAnimation() {
-  //     const scoreAnimation = document.getElementById("scoreAnimation");
-  //     scoreAnimation.classList.add("hidden");
-
-  //     WinningSound.pause();
-  //     WinningSound.currentTime = 0;
-
-  //     confettiElements.forEach((confetti) => {
-  //       confetti.remove();
-  //     });
-  //     confettiElements = [];
-  //   }
-
+  function stopWinningAnimation() {
+    winningAudioRef.current.pause();
+    winningAudioRef.current.currentTime = 0;
+    setIsWinning(null);
+    setScore('');
+    setScoreState('hidden');
+  }
+  function stopLoosingAnimation() {
+    loosingAudioRef.current.pause();
+    loosingAudioRef.current.currentTime = 0;
+  }
   return /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
     className: "bottomContainer",
     style: bottomContainerStyle
@@ -542,15 +610,19 @@ function ScratchCard(_ref) {
   }, /*#__PURE__*/_react["default"].createElement("button", {
     "class": "actionbtn actionbtn1",
     onClick: clearCanvas,
-    ref: playButtonRef
-  }, "grattez"), /*#__PURE__*/_react["default"].createElement("div", {
+    ref: playButtonRef,
+    style: scratchAllButton
+  }, "grattez"), /*#__PURE__*/_react["default"].createElement("button", {
     "class": "actionbtn actionbtn2",
     id: "playAgainButton",
     onClick: playAgainFct,
-    ref: replayButtonRef
+    ref: replayButtonRef,
+    style: replayButton
   }, /*#__PURE__*/_react["default"].createElement("span", {
     id: "replay-label"
-  }, "rejouer"))), isFlares && /*#__PURE__*/_react["default"].createElement("img", {
+  }, "rejouer")), loadReplay && /*#__PURE__*/_react["default"].createElement("div", {
+    className: "custom-loader"
+  })), isFlares && /*#__PURE__*/_react["default"].createElement("img", {
     className: "cardContainer__flares",
     alt: "top flares",
     src: _flares["default"]
@@ -575,9 +647,8 @@ function ScratchCard(_ref) {
   }, rules) : '', /*#__PURE__*/_react["default"].createElement("div", {
     className: "scoringContainer"
   }, /*#__PURE__*/_react["default"].createElement("div", {
-    id: "scoreAnimation",
-    className: "scoreAnimation hidden"
-  }, "0")), /*#__PURE__*/_react["default"].createElement("div", {
+    className: "scoreAnimation " + scoreState
+  }, score)), /*#__PURE__*/_react["default"].createElement("div", {
     className: "confetti-container"
   })), /*#__PURE__*/_react["default"].createElement("img", {
     src: bottomImage,
@@ -612,7 +683,10 @@ function ScratchCard(_ref) {
     className: "scratch-area",
     onMouseDown: handleMouseDown,
     onMouseUp: handleMouseUp,
-    onMouseMove: handleMouseMove
+    onMouseMove: handleMouseMove,
+    onTouchStart: handleTouchStart,
+    onTouchEnd: handleTouchEnd,
+    onTouchMove: handleTouchMove
   }))), /*#__PURE__*/_react["default"].createElement("dialog", {
     ref: dialogRef,
     className: "dialogWrapper",
@@ -680,7 +754,9 @@ ScratchCard.propTypes = {
   burgerMenu: _propTypes["default"].object,
   winnerConditions: _propTypes["default"].object,
   winningValues: _propTypes["default"].object,
-  cardContainer: _propTypes["default"].object
+  cardContainer: _propTypes["default"].object,
+  replayButton: _propTypes["default"].object,
+  scratchAllButton: _propTypes["default"].object
 };
 ScratchCard.defaultProps = {
   bottomContainerStyle: {},
@@ -702,5 +778,7 @@ ScratchCard.defaultProps = {
   bottomImage: '',
   apiEndpoint: '',
   tropheeObject: '',
-  tropheeImage: ''
+  tropheeImage: '',
+  replayButton: {},
+  scratchAllButton: {}
 };
