@@ -568,7 +568,8 @@ export default function ScratchCard({ winnerConditions, winningValues, currency,
                         <img src={gameLogo} className={`game-logo ${gameLogoPosition}`} alt='game logo' />
                         {rules ? <p className="cardContainer__rules">{rules}</p> : ''}
                     </div>
-                    <div className="scoringContainer">
+                    <div class="scoringContainer">
+                        <div className={"scoreAnimation " + [scoreState]}> {score} </div>
                     </div>
                     <div className="confetti-container"></div>
                     <img src={bottomImage} className='cardContainer_bottomImg' style={{ inset: getPositionStyle(bottomImagePosition) }} alt='bottom img' />
